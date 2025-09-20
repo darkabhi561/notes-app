@@ -4,7 +4,7 @@
     <title>Notes App</title>
 </head>
 <body>
-    <h1>My Notes</h1>
+    <h1>My Notes App</h1>
     <form action="save.php" method="post">
         <textarea name="note" rows="5" cols="40"></textarea><br>
         <button type="submit">Save</button>
