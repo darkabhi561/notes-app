@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Notes App</title>
+    <title>My New Notes App</title>
     <style>
         body {
             font-family: Arial, sans-serif;
