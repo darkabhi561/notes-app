@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Brand New Notes App</title>
+    <title>New Notes App</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -80,7 +80,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>My Notes App</h1>
+        <h1>My Brand New Notes App</h1>
         <form action="save.php" method="post">
             <textarea name="note" rows="5" cols="40"></textarea><br>
             <button type="submit">Save</button>
