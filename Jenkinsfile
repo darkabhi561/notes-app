@@ -48,7 +48,7 @@ pipeline {
                 sh '''
                 echo "==== Checking app response ===="
                 sleep 5
-                curl -s http://13.233.195.5:$PORT | head -n 20
+                curl -s http://13.234.238.73:$PORT | head -n 20
                 '''
             }
         }
