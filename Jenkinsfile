@@ -3,18 +3,15 @@ pipeline {
 
     environment {
         IMAGE_NAME     = "notes-app"
-        IMAGE_TAG      = "latest"
         CONTAINER_NAME = "notes-app-container"
-        PORT           = "9092"
+        PORT           = "9093"
         HOST_IP        = "35.154.28.140"
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'master',
-                    credentialsId: 'GitHub_Creds',
-                    url: 'https://github.com/Satyams-git/notes-app.git'
+                git branch: 'master', url: 'https://github.com/Satyams-git/notes-app.git'
             }
         }
 
@@ -22,7 +19,7 @@ pipeline {
             steps {
                 sh '''
                 echo "==== Building Docker Image ===="
-                docker build -t $IMAGE_NAME:$IMAGE_TAG .
+                docker build -t $IMAGE_NAME .
                 '''
             }
         }
@@ -38,42 +35,36 @@ pipeline {
                     echo "==== Logging in to Docker Hub ===="
                     echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
 
-                    echo "==== Tagging image ===="
-                    docker tag $IMAGE_NAME:$IMAGE_TAG $DOCKER_USER/$IMAGE_NAME:$IMAGE_TAG
+                    echo "==== Tagging Image ===="
+                    docker tag $IMAGE_NAME $DOCKER_USER/$IMAGE_NAME:latest
 
-                    echo "==== Pushing image to Docker Hub ===="
-                    docker push $DOCKER_USER/$IMAGE_NAME:$IMAGE_TAG
+                    echo "==== Pushing Image to Docker Hub ===="
+                    docker push $DOCKER_USER/$IMAGE_NAME:latest
                     '''
                 }
             }
         }
 
-        stage('Deploy Application') {
+        stage('Stop Old Container') {
             steps {
-                withCredentials([usernamePassword(
-                    credentialsId: 'Docker_Hub_Id_Pwd',
-                    usernameVariable: 'DOCKER_USER',
-                    passwordVariable: 'DOCKER_PASS'
-                )]) {
-                    sh '''
-                    echo "==== Stopping old container (if any) ===="
-                    docker stop $CONTAINER_NAME || true
-                    docker rm $CONTAINER_NAME || true
+                sh '''
+                echo "==== Stopping old container (if any) ===="
+                docker stop $CONTAINER_NAME || true
+                docker rm $CONTAINER_NAME || true
 
-                    echo "==== Pulling latest image from Docker Hub ===="
-                    docker pull $DOCKER_USER/$IMAGE_NAME:$IMAGE_TAG
+                echo "==== Pulling latest image from Docker Hub ===="
+                docker pull $DOCKER_USER/$IMAGE_NAME:latest || true
 
-                    echo "==== Running new container ===="
-                    docker run -d --name $CONTAINER_NAME -p $PORT:80 $DOCKER_USER/$IMAGE_NAME:$IMAGE_TAG
-                    '''
-                }
+                echo "==== Running new container ===="
+                docker run -d --name $CONTAINER_NAME -p $PORT:80 $DOCKER_USER/$IMAGE_NAME:latest
+                '''
             }
         }
     }
 
     post {
         success {
-            echo "Notes App deployed successfully: http://${HOST_IP}:${PORT}"
+            echo "App deployed successfully at: http://${HOST_IP}:${PORT}"
         }
         failure {
             echo "Build/Deploy failed. Check Jenkins logs."
