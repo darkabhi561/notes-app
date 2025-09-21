@@ -1,12 +1,11 @@
-
 pipeline {
     agent { label "dev" }
 
     environment {
-        IMAGE_NAME     = "notes-app"
+        IMAGE_NAME = "notes-app"
         CONTAINER_NAME = "notes-app-container"
-        PORT           = "9093"
-        HOST_IP        = "35.154.28.140"
+        PORT = "9093"
+        HOST_IP = "http://43.204.35.68/"
     }
 
     stages {
@@ -46,7 +45,7 @@ pipeline {
             }
         }
 
-        stage('Stop Old Container') {
+        stage('Deploy Container') {
             steps {
                 withCredentials([usernamePassword(
                     credentialsId: 'Docker_Hub_Id_Pwd',
@@ -71,20 +70,8 @@ pipeline {
 
     post {
         success {
-            echo "App deployed successfully at: http://${HOST_IP}:${PORT}"
-            emailext(
-                subject:"Build Successfull",
-                body: "Build was Successfull - Congrats!",
-                to: 'satyam.hikearts@gmail.com'
-                )
-        }
-        failure {
-            echo "Build/Deploy failed. Check Jenkins logs."
-            emailext(
-                subject: "Build was failed",
-                body: "Opps! Build Failed",
-                to: 'satyam.hikearts@gmail.com'
-                )
+            echo "App deployed successfully}"
+        
         }
     }
 }
