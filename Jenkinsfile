@@ -1,6 +1,6 @@
 
 pipeline {
-    agent any
+    agent { label "dev" }
 
     environment {
         IMAGE_NAME     = "notes-app"
@@ -71,10 +71,20 @@ pipeline {
 
     post {
         success {
-            echo "✅ App deployed successfully at: http://${HOST_IP}:${PORT}"
+            echo "App deployed successfully at: http://${HOST_IP}:${PORT}"
+            emailext(
+                subject:"Build Successfull",
+                body: "Build was Successfull - Congrats!",
+                to: 'satyam.hikearts@gmail.com'
+                )
         }
         failure {
-            echo "❌ Build/Deploy failed. Check Jenkins logs."
+            echo "Build/Deploy failed. Check Jenkins logs."
+            emailext(
+                subject: "Build was failed",
+                body: "Opps! Build Failed",
+                to: 'satyam.hikearts@gmail.com'
+                )
         }
     }
 }
