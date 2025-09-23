@@ -1,151 +1,149 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>DevOps Batch 17 Notes App</title>
-    <style>
-        body {
-            font-family: "Segoe UI", Arial, sans-serif;
-            background: linear-gradient(135deg, #0d6efd, #6610f2);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-            align-items: center;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevOps Batch 17 Notes</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #141e30, #243b55);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #fff;
+    }
 
-        .container {
-            max-width: 700px;
-            width: 90%;
-            background: #fff;
-            margin: 20px;
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            animation: fadeIn 1s ease-in-out;
-        }
+    .app {
+      width: 90%;
+      max-width: 750px;
+      padding: 25px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      animation: slideUp 1s ease;
+    }
 
-        @keyframes fadeIn {
-            from {opacity: 0; transform: translateY(20px);}
-            to {opacity: 1; transform: translateY(0);}
-        }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-        h1 {
-            text-align: center;
-            color: #0d6efd;
-            margin-bottom: 25px;
-            font-size: 28px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
+    h1 {
+      text-align: center;
+      font-size: 30px;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, #00c6ff, #0072ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
 
-        form {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 30px;
-        }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 25px;
+    }
 
-        textarea {
-            padding: 14px;
-            border: 2px solid #0d6efd;
-            border-radius: 10px;
-            font-size: 15px;
-            resize: vertical;
-            min-height: 120px;
-            margin-bottom: 14px;
-            transition: 0.3s;
-        }
+    textarea {
+      background: rgba(255,255,255,0.1);
+      border: none;
+      border-radius: 12px;
+      padding: 15px;
+      color: #fff;
+      font-size: 15px;
+      resize: vertical;
+      min-height: 120px;
+      outline: none;
+      transition: 0.3s;
+    }
 
-        textarea:focus {
-            border-color: #6610f2;
-            outline: none;
-            box-shadow: 0 0 5px rgba(102,16,242,0.4);
-        }
+    textarea:focus {
+      background: rgba(255,255,255,0.15);
+      box-shadow: 0 0 8px rgba(0,198,255,0.6);
+    }
 
-        button {
-            align-self: flex-start;
-            background: linear-gradient(135deg, #0d6efd, #6610f2);
-            color: white;
-            border: none;
-            padding: 12px 22px;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+    button {
+      align-self: flex-start;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      color: #fff;
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
+      transition: 0.3s;
+    }
 
-        button:hover {
-            background: linear-gradient(135deg, #6610f2, #0d6efd);
-            transform: translateY(-2px);
-        }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0,198,255,0.4);
+    }
 
-        h2 {
-            color: #333;
-            margin-bottom: 12px;
-            border-left: 5px solid #0d6efd;
-            padding-left: 10px;
-            font-size: 22px;
-        }
+    h2 {
+      font-size: 22px;
+      margin-bottom: 12px;
+      color: #00c6ff;
+      border-left: 4px solid #00c6ff;
+      padding-left: 10px;
+    }
 
-        .notes-box {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 12px;
-            border: 1px solid #ddd;
-            max-height: 300px;
-            overflow-y: auto;
-        }
+    .notes-box {
+      background: rgba(255,255,255,0.08);
+      padding: 15px;
+      border-radius: 14px;
+      max-height: 280px;
+      overflow-y: auto;
+      color: #eee;
+      font-size: 15px;
+      line-height: 1.6;
+    }
 
-        pre {
-            background: none;
-            padding: 0;
-            margin: 0;
-            border: none;
-            white-space: pre-wrap; 
-            word-wrap: break-word; 
-            font-size: 15px;
-            line-height: 1.5;
-            color: #222;
-        }
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #aaa;
+    }
 
-        .footer {
-            text-align: center;
-            margin-top: 25px;
-            font-size: 14px;
-            color: #555;
-        }
-
-        .footer span {
-            font-weight: bold;
-            color: #0d6efd;
-        }
-    </style>
+    .footer span {
+      color: #00c6ff;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>DevOps Batch 17 Notes App with CI/CD Automations </h1>
-        <form action="save.php" method="post">
-            <textarea name="note" placeholder="Write your DevOps notes here..."></textarea><br>
-            <button type="submit">💾 Save Note</button>
-        </form>
+  <div class="app">
+    <h1>DevOps Batch 17 Notes</h1>
+    <form action="save.php" method="post">
+      <textarea name="note" placeholder="✍️ Write something cool..."></textarea>
+      <button type="submit">🚀 Save Note</button>
+    </form>
 
-        <h2>Saved Notes:</h2>
-        <div class="notes-box">
-            <pre>
+    <h2>Your Notes</h2>
+    <div class="notes-box">
+      <pre>
 <?php
 if (file_exists("/data/notes.txt")) {
     echo file_get_contents("/data/notes.txt");
 } else {
-    echo "No notes yet. Start writing your first DevOps note!";
+    echo "No notes yet. Start with your first one 🚀";
 }
 ?>
-            </pre>
-        </div>
-
-        <div class="footer">
-            Made with ❤ by <span>DevOps Batch 17</span>
-        </div>
+      </pre>
     </div>
+
+    <div class="footer">
+      Made with ⚡ by <span>DevOps Batch 17</span>
+    </div>
+  </div>
 </body>
 </html>
+
