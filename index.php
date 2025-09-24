@@ -121,7 +121,7 @@
 </head>
 <body>
   <div class="app">
-    <h1>DevOps Batch 17th Notes</h1>
+    <h1>DevOps Batch 17 Notes</h1>
     <form action="save.php" method="post">
       <textarea name="note" placeholder="✍️ Write something cool..."></textarea>
       <button type="submit">🚀 Save Note</button>
