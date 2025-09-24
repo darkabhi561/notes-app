@@ -68,16 +68,16 @@ pipeline {
         }
     }
 
-    post {
-        success {
-            echo "App deployed successfully}"
-            emailext(
-                subject:"Build Successdull",
-                body:"Congrats! Build was successfull",
-                to:'abhishekkumarbs27@gmail.com'
-                )
-        
-        }
+   post {
+    success {
+        echo "App deployed successfully"
+        emailext(
+            subject: "Build Successful",
+            body: "Congrats! Build was successful",
+            to: 'abhishekkumarbs27@gmail.com'
+        )
+    }
+
         failure {
             echo "Build failed, Check Jenkins logs"
             emailext(
